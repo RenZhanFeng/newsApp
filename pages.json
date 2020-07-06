@@ -16,10 +16,6 @@
             "path" : "pages/tabbar/follow/follow",
             "style" : {}
         }
-        ,{
-            "path" : "components/tab/tab",
-            "style" : {}
-        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

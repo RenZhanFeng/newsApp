@@ -1,7 +1,7 @@
 <template>
 	<view class="">
 		<navbar></navbar>
-		<tab></tab>
+		<tab :tabList="tabList"></tab>
 		<view v-for="item in 100">
 			{{item}}
 		</view>
@@ -13,18 +13,24 @@
 	export default {
 		data() {
 			return {
-				
+				tabList: []	//tab的数据
 			}
 		},
-		onLoad() {
-
+		created() {
+			this.getLabel()
 		},
 		methods: {
-
+			getLabel() {
+				uniCloud.callFunction({
+					name: 'get_label'
+				}).then((res)=>{
+					this.tabList = res.result.data
+				})
+			}
 		}
 	}
 </script>
 
 <style>
-	
+
 </style>
