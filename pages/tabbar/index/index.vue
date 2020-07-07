@@ -21,7 +21,8 @@
 		},
 		methods: {
 			getLabel() {
-				this.$api.list.get_label({
+				console.log(this.$api)
+				this.$api.get_label({
 					name: 'get_label'
 				}).then((res) => {
 					this.tabList = res.data

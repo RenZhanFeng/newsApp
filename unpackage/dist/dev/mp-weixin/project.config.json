@@ -4,17 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": true,
-		"autoAudits": false,
-		"coverView": true,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"useCompilerModule": false
+		"urlCheck": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "",
