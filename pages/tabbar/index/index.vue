@@ -1,10 +1,12 @@
 <template>
-	<view class="">
+	<view class="home">
 		<navbar></navbar>
-		<tab :tabList="tabList"></tab>
-		<view v-for="(item,index) in 100" :key='index'>
-			{{item}}
-		</view>
+		<tab :tabList="tabList" @tab="tab"></tab>
+
+		<list-scroll>
+			<list-card v-for="item in 5"></list-card>
+		</list-scroll>
+
 	</view>
 </template>
 
@@ -21,17 +23,28 @@
 		},
 		methods: {
 			getLabel() {
-				console.log(this.$api)
 				this.$api.get_label({
 					name: 'get_label'
 				}).then((res) => {
 					this.tabList = res.data
 				})
+			},
+			tab(item, index) {
+				console.log(item, index)
 			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
+	page {
+		height: 100%;
+		display: flex;
 
+		.home {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+		}
+	}
 </style>

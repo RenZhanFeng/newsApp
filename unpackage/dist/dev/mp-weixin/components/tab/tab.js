@@ -129,6 +129,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 var _default2 =
 {
   props: {
@@ -140,11 +141,18 @@ var _default2 =
 
 
   data: function data() {
-    return {};
-
+    return {
+      activeIndex: 0 };
 
   },
-  methods: {} };exports.default = _default2;
+  methods: {
+    clickTab: function clickTab(item, index) {
+      this.activeIndex = index;
+      this.$emit('tab', {
+        item: item,
+        index: index });
+
+    } } };exports.default = _default2;
 
 /***/ }),
 
