@@ -2,7 +2,7 @@
 	<view class="">
 		<navbar></navbar>
 		<tab :tabList="tabList"></tab>
-		<view v-for="item in 100">
+		<view v-for="(item,index) in 100" :key='index'>
 			{{item}}
 		</view>
 	</view>
@@ -13,7 +13,7 @@
 	export default {
 		data() {
 			return {
-				tabList: []	//tab的数据
+				tabList: [] //tab的数据
 			}
 		},
 		created() {
@@ -21,10 +21,10 @@
 		},
 		methods: {
 			getLabel() {
-				uniCloud.callFunction({
+				this.$api.list.get_label({
 					name: 'get_label'
-				}).then((res)=>{
-					this.tabList = res.result.data
+				}).then((res) => {
+					this.tabList = res.data
 				})
 			}
 		}

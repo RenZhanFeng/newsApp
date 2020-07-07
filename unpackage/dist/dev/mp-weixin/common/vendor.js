@@ -7790,6 +7790,73 @@ module.exports = g;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__9810DDB" };exports.default = _default;
 
+/***/ }),
+
+/***/ 48:
+/*!*************************************************!*\
+  !*** D:/R2/uni-app/newsApp/common/api/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var list = _interopRequireWildcard(__webpack_require__(/*! ./list.js */ 49));function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}var _default =
+
+{
+  list: list };exports.default = _default;
+
+/***/ }),
+
+/***/ 49:
+/*!************************************************!*\
+  !*** D:/R2/uni-app/newsApp/common/api/list.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.get_label = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ../http.js */ 50));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var get_label = function get_label(data) {
+  return (0, _http.default)({
+    url: 'get_label',
+    data: data });
+
+};exports.get_label = get_label;
+
+/***/ }),
+
+/***/ 50:
+/*!********************************************!*\
+  !*** D:/R2/uni-app/newsApp/common/http.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uniCloud) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = $http; //封装网络请求
+function $http(options) {var
+
+  url =
+
+  options.url,data = options.data;
+  return new Promise(function (reslove, reject) {
+    uniCloud.callFunction({
+      name: url,
+      data: data }).
+    then(function (res) {
+      if (res.result.code === 200) {
+        reslove(res.result);
+      } else {
+        reject(res.result);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js */ 46)["default"]))
+
 /***/ })
 
 }]);

@@ -38,6 +38,8 @@
 	@import '../../common/css/icons.css';
 
 	.tab {
+		// position: fixed;
+		// top: 45px;
 		display: flex;
 		box-sizing: border-box;
 		border: 1px solid #f5f5f5;
