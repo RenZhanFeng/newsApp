@@ -4,7 +4,7 @@
 		<tab :tabList="tabList" @tab="tab"></tab>
 
 		<list-scroll>
-			<list-card v-for="item in 5"></list-card>
+			<list-card v-for="item in 10"></list-card>
 		</list-scroll>
 
 	</view>
@@ -45,6 +45,7 @@
 			display: flex;
 			flex-direction: column;
 			flex: 1;
+			// overflow: hidden;
 		}
 	}
 </style>
