@@ -1,12 +1,10 @@
 <template>
 	<view class="home">
 		<navbar></navbar>
-		<tab :tabList="tabList" @tab="tab"></tab>
-
-		<list-scroll>
-			<list-card v-for="item in 10"></list-card>
-		</list-scroll>
-
+		<tab :tabList="tabList" :tabIndex="tabIndex" @tab="tab"></tab>
+		<view class="home-list">
+			<list :tab="tabList" :activeIndex="activeIndex" @change="change"></list>
+		</view>
 	</view>
 </template>
 
@@ -15,7 +13,9 @@
 	export default {
 		data() {
 			return {
-				tabList: [] //tab的数据
+				tabList: [], //tab的数据
+				tabIndex:0,
+				activeIndex:0
 			}
 		},
 		created() {
@@ -30,7 +30,10 @@
 				})
 			},
 			tab(item, index) {
-				console.log(item, index)
+				this.activeIndex = item.index
+			},
+			change(current){
+				this.tabIndex = current
 			}
 		}
 	}
@@ -46,6 +49,10 @@
 			flex-direction: column;
 			flex: 1;
 			// overflow: hidden;
+			.home-list{
+				flex:1;
+				box-sizing: border-box;
+			}
 		}
 	}
 </style>
