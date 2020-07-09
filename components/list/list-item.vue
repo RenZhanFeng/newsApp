@@ -1,6 +1,7 @@
 <template>
-	<list-scroll class="list-scroll">
+	<list-scroll class="list-scroll" @loadMore="loadMore">
 		<list-card v-for="item in list" :key="item._id" :item="item"></list-card>
+		<uni-load-more status="loading" iconType="snow"></uni-load-more>
 	</list-scroll>
 </template>
 
@@ -20,7 +21,9 @@
 			}
 		},
 		methods: {
-
+			loadMore(){
+				this.$emit('loadMore')
+			}
 		}
 	}
 </script>
