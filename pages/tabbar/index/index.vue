@@ -35,6 +35,7 @@
 			},
 			change(current){
 				this.tabIndex = current
+				this.activeIndex = current
 			}
 		}
 	}
