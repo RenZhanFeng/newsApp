@@ -43,9 +43,6 @@
 				}
 			}
 		},
-		created() {
-
-		},
 		methods: {
 			change(e) {
 				const {

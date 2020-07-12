@@ -26,6 +26,7 @@
 				this.$api.get_label({
 					name: 'get_label'
 				}).then((res) => {
+					//添加“推荐”分类
 					res.data.unshift({name:'推荐'})
 					this.tabList = res.data
 				})

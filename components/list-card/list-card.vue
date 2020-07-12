@@ -8,6 +8,7 @@
 			<view class="listCard-content">
 				<view class="listCard-content-title">
 					<text>{{item.title}}</text>
+					<like :item="item"></like>
 				</view>
 				<view class="listCard-content-des">
 					<view class="listCard-content-des-label">
@@ -23,6 +24,7 @@
 			<view class=" listCard-content">
 				<view class="listCard-content-title">
 					<text>{{item.title}}</text>
+					<like :item="item"></like>
 				</view>
 				<view class="listCard-image">
 					<view class="listCard-image-item" v-for="(item, index) in item.cover" :key="item._id" v-if="index < 3">
@@ -46,6 +48,7 @@
 			<view class="listCard-content">
 				<view class="listCard-content-title">
 					<text>{{item.title}}</text>
+					<like :item="item"></like>
 				</view>
 				<view class="listCard-content-des">
 					<view class="listCard-content-des-label">
@@ -82,6 +85,7 @@
 </script>
 
 <style lang="scss">
+
 	.listCard {
 		display: flex;
 		padding: 10px;
@@ -111,6 +115,8 @@
 			width: 100%;
 
 			.listCard-content-title {
+				position: relative;
+				padding-right: 30px;
 				color: #333;
 				font-size: 14px;
 				font-weight: 400;
@@ -124,7 +130,7 @@
 					-webkit-box-orient: vertical;
 				}
 			}
-
+			
 			.listCard-content-des {
 				display: flex;
 				justify-content: space-between;
