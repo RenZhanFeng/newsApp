@@ -760,7 +760,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7096,7 +7096,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7117,14 +7117,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7200,7 +7200,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7625,9 +7625,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!****************************************!*\
-  !*** D:/R2/uni-app/newsApp/pages.json ***!
-  \****************************************/
+/*!*********************************************!*\
+  !*** F:/Project/uni-app/newsApp/pages.json ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -7768,9 +7768,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!*************************************************!*\
-  !*** D:/R2/uni-app/newsApp/common/api/index.js ***!
-  \*************************************************/
+/*!******************************************************!*\
+  !*** F:/Project/uni-app/newsApp/common/api/index.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7789,9 +7789,9 @@ _module;exports.default = _default;
 
 /***/ }),
 /* 12 */
-/*!***************************************************************!*\
-  !*** D:/R2/uni-app/newsApp/common/api sync nonrecursive .js$ ***!
-  \***************************************************************/
+/*!********************************************************************!*\
+  !*** F:/Project/uni-app/newsApp/common/api sync nonrecursive .js$ ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7823,14 +7823,14 @@ webpackContext.id = 12;
 
 /***/ }),
 /* 13 */
-/*!************************************************!*\
-  !*** D:/R2/uni-app/newsApp/common/api/list.js ***!
-  \************************************************/
+/*!*****************************************************!*\
+  !*** F:/Project/uni-app/newsApp/common/api/list.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.get_list = exports.get_label = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ../http.js */ 14));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.update_like = exports.get_list = exports.get_label = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ../http.js */ 14));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var get_label = function get_label(data) {
   return (0, _http.default)({
@@ -7846,25 +7846,36 @@ var get_list = function get_list(data) {
 
 };exports.get_list = get_list;
 
+var update_like = function update_like(data) {
+  return (0, _http.default)({
+    url: 'update_like',
+    data: data });
+
+};exports.update_like = update_like;
+
 /***/ }),
 /* 14 */
-/*!********************************************!*\
-  !*** D:/R2/uni-app/newsApp/common/http.js ***!
-  \********************************************/
+/*!*************************************************!*\
+  !*** F:/Project/uni-app/newsApp/common/http.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uniCloud) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = $http; //封装网络请求
+/* WEBPACK VAR INJECTION */(function(uniCloud) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = $http;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //进一步封装网络请求
 function $http(options) {var
 
   url =
 
   options.url,data = options.data;
+  var dataObj = _objectSpread({
+    user_id: "5f01a335e9159b00010797e1" },
+  data);
+
   return new Promise(function (reslove, reject) {
     uniCloud.callFunction({
       name: url,
-      data: data }).
+      data: dataObj }).
     then(function (res) {
       if (res.result.code === 200) {
         reslove(res.result);
@@ -7892,9 +7903,9 @@ function $http(options) {var
 
 /***/ }),
 /* 16 */
-/*!********************************************************!*\
-  !*** D:/R2/uni-app/newsApp/pages.json?{"type":"stat"} ***!
-  \********************************************************/
+/*!*************************************************************!*\
+  !*** F:/Project/uni-app/newsApp/pages.json?{"type":"stat"} ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -4,7 +4,11 @@
 			<!-- 保留出手机顶部状态栏的位置 -->
 			<view :style="{height: statusBarHeight + 'px'}"></view>
 			<!-- 导航栏内容 -->
-			<view class="navbar-conten" :style="{height: navBarHeight + 'px',width: navBarWidth + 'px'}">
+			<view class="navbar-conten" :class="{search: isSearch}" :style="{height: navBarHeight + 'px',width: navBarWidth + 'px'}"
+			 @click="open">
+				<view class="back" @click="back" v-if="isSearch">
+					<text class="iconfont icon-fanhui2"></text>
+				</view>
 				<view class="navbar-serch">
 					<view class="navbar-search-icon"><text class="iconfont icon-soushuo"></text></view>
 					<view class="navbar-serch-text">
@@ -19,11 +23,17 @@
 
 <script>
 	export default {
+		props: {
+			isSearch: {
+				type: Boolean,
+				default: false
+			}
+		},
 		data() {
 			return {
-				statusBarHeight: 20,	//手机顶部状态栏高度
-				navBarHeight: 45,	//导航栏高度
-				navBarWidth:375,	//导航栏宽度
+				statusBarHeight: 20, //手机顶部状态栏高度
+				navBarHeight: 45, //导航栏高度
+				navBarWidth: 375, //导航栏宽度
 			}
 		},
 		created() {
@@ -31,19 +41,32 @@
 			const deviceInfo = uni.getSystemInfoSync()
 			this.statusBarHeight = deviceInfo.statusBarHeight
 			this.navBarWidth = deviceInfo.windowWidth
-			
+
 			//#ifndef H5 || APP-PLUS || MP-ALIPAY
 			//获取右上角胶囊的信息
 			const menuButtonInfo = uni.getMenuButtonBoundingClientRect()
-			this.navBarHeight = (menuButtonInfo.bottom - this.statusBarHeight) + (menuButtonInfo.top - this.statusBarHeight)*2
+			this.navBarHeight = (menuButtonInfo.bottom - this.statusBarHeight) + (menuButtonInfo.top - this.statusBarHeight) * 2
 			this.navBarWidth = menuButtonInfo.left
 			//#endif
+		},
+		methods: {
+			open() {
+				uni.navigateTo({
+					url: '/pages/home-search/home-search'
+				})
+			},
+			back() {
+				uni.navigateBack({
+					delta: 1
+				})
+			}
 		}
 	}
 </script>
 
 <style lang="scss">
 	@import '../../common/css/icons.css';
+
 	.navbar {
 		.nav-fixed {
 			position: fixed;
@@ -78,6 +101,21 @@
 						width: 100%;
 						font-size: 14px;
 						color: #999;
+					}
+				}
+
+				&.search {
+					.back {
+						margin-left: -10px;
+						margin-right: 10px;
+
+						.icon-fanhui2 {
+							color: #fff;
+							font-size: 20px;
+						}
+					}
+					.navbar-serch{
+						border-radius: 5px;
 					}
 				}
 			}

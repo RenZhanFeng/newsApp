@@ -54,58 +54,14 @@
 .icon-soushuo:before {
   content: "\e600";
 }
-.navbar .nav-fixed {
-  position: fixed;
+.like {
+  position: absolute;
   top: 0;
-  left: 0;
-  z-index: 100;
-  width: 100%;
-  background-color: #f07373;
+  right: 0;
 }
-.navbar .nav-fixed .navbar-conten {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  padding: 0 15px;
-  box-sizing: border-box;
-}
-.navbar .nav-fixed .navbar-conten .navbar-serch {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  padding: 0 10px;
-  width: 100%;
-  height: 30px;
-  border-radius: 30px;
-  background: #ffff;
-}
-.navbar .nav-fixed .navbar-conten .navbar-serch .navbar-search-icon {
-  margin-right: 10px;
-  color: #999;
-}
-.navbar .nav-fixed .navbar-conten .navbar-serch .navbar-serch-text {
-  width: 100%;
-  font-size: 14px;
-  color: #999;
-}
-.navbar .nav-fixed .navbar-conten.search .back {
-  margin-left: -10px;
-  margin-right: 10px;
-}
-.navbar .nav-fixed .navbar-conten.search .back .icon-fanhui2 {
-  color: #fff;
-  font-size: 20px;
-}
-.navbar .nav-fixed .navbar-conten.search .navbar-serch {
-  border-radius: 5px;
+.like .icon-like,
+.like .icon-unlike {
+  font-size: 16px;
+  color: #f07373;
 }
 

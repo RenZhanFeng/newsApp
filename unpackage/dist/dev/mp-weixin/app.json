@@ -2,7 +2,8 @@
   "pages": [
     "pages/tabbar/index/index",
     "pages/tabbar/my/my",
-    "pages/tabbar/follow/follow"
+    "pages/tabbar/follow/follow",
+    "pages/home-search/home-search"
   ],
   "subPackages": [],
   "window": {

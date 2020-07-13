@@ -22,7 +22,9 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": false
+		"useIsolateContext": true,
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "",
