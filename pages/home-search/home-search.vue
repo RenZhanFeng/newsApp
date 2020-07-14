@@ -27,7 +27,7 @@
 	export default {
 		data() {
 			return {
-				historyList:''
+				historyList: '123'
 			}
 		},
 		methods: {
@@ -76,6 +76,7 @@
 					display: flex;
 					flex-wrap: wrap;
 					padding: 5px 15px 15px;
+					box-shadow: 0 5px 5px -3px #ccc;
 
 					.label-content-item {
 						padding: 2px 10px;
@@ -86,13 +87,15 @@
 						color: #666;
 					}
 				}
-				.no-data{
+
+				.no-data {
 					height: 200px;
 					line-height: 200px;
 					width: 100%;
 					text-align: center;
-					color:#666;
+					color: #666;
 					font-size: 14px;
+					box-shadow: 0 5px 5px -3px #ccc;
 				}
 			}
 		}
