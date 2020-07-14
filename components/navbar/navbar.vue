@@ -18,7 +18,7 @@
 				</view>
 				<!-- 在搜索页面显示这个搜索框 -->
 				<view class="navbar-search" v-if="isSearch">
-					<input class="navbar-search-text" type="text" value="" placeholder="请输入您要搜索的内容"/>
+					<input class="navbar-search-text" type="text" @input="inputChange" v-model="val" placeholder="请输入您要搜索的内容" />
 				</view>
 			</view>
 		</view>
@@ -39,6 +39,7 @@
 				statusBarHeight: 20, //手机顶部状态栏高度
 				navBarHeight: 45, //导航栏高度
 				navBarWidth: 375, //导航栏宽度
+				val: '' //搜索栏的数据
 			}
 		},
 		created() {
@@ -56,7 +57,7 @@
 		},
 		methods: {
 			open() {
-				if(this.isSearch) return
+				if (this.isSearch) return
 				uni.navigateTo({
 					url: '/pages/home-search/home-search'
 				})
@@ -65,8 +66,15 @@
 				uni.navigateBack({
 					url: '/pages'
 				})
+			},
+			inputChange(e) {
+				const {
+					value
+				} = e.detail
+				this.$emit('input', value)
 			}
 		}
+
 	}
 </script>
 
@@ -112,6 +120,7 @@
 
 				&.search {
 					padding-left: 0;
+
 					.back {
 						margin-left: 10px;
 						margin-right: 10px;
@@ -121,7 +130,8 @@
 							font-size: 20px;
 						}
 					}
-					.navbar-search{
+
+					.navbar-search {
 						border-radius: 5px;
 					}
 				}

@@ -1,8 +1,8 @@
 <template>
 	<view class="home">
-		<navbar :isSearch="true"></navbar>
+		<navbar :isSearch="true" @input="change"></navbar>
 		<view class="home-list">
-			<view class="label-box">
+			<view class="label-box" v-if="is_history">
 				<view class="label-header">
 					<text class="label-title">搜索历史</text>
 					<view class="label-clear">
@@ -10,28 +10,68 @@
 						<text class="iconfont icon-lajitong"></text>
 					</view>
 				</view>
-				<view class="label-content" v-if="historyList.length > 0">
-					<view class="label-content-item" v-for="item in 10" :key="item">
-						{{item}}内容
+				<view class="label-content" v-if="historyLists.length > 0">
+					<view class="label-content-item" v-for="(item, index) in historyLists" :key="index">
+						{{item.name}}内容
 					</view>
 				</view>
 				<view class="no-data" v-else>
 					没有搜索历史
 				</view>
 			</view>
+			<list-scroll v-else class="list-scroll">
+				<list-card v-for="item in searchList" :key="item._id" :item="item"></list-card>
+			</list-scroll>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		data() {
 			return {
-				historyList: '123'
+				is_history: true, //true表示在搜索结果页面
+				searchList: [] //搜索结果数据列表
 			}
 		},
+		computed: {
+			...mapState(['historyLists'])
+		},
 		methods: {
-
+			//搜索栏内容变化时触发
+			change(value) {
+				if(value === ''){
+					clearTimeout(this.timer)
+					this.searchList = []
+					this.is_history = true
+					this.mark = false
+					return
+				}
+				//节流
+				if (!this.mark) {
+					this.mark = true
+					this.timer = setTimeout(() => {
+						this.getSearch(value)
+						this.mark = false
+					}, 1000)
+				}
+			},
+			//请求搜索结果
+			getSearch(value) {
+				this.is_history = false
+				this.$api.get_search({
+					value
+				}).then(res => {
+					console.log(res)
+					const {
+						data
+					} = res
+					this.searchList = data
+				})
+			},
 		}
 	}
 </script>

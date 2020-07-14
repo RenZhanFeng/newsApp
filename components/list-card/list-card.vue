@@ -93,6 +93,7 @@
 		border-radius: 5px;
 		box-shadow: 0 0 5px 1px rgba(0, 0, 0, .1);
 		box-sizing: border-box;
+		background: #FFFFFF;
 
 		.listCard-image {
 			flex-shrink: 0;
