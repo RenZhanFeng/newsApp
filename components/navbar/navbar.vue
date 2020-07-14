@@ -5,15 +5,20 @@
 			<view :style="{height: statusBarHeight + 'px'}"></view>
 			<!-- 导航栏内容 -->
 			<view class="navbar-conten" :class="{search: isSearch}" :style="{height: navBarHeight + 'px',width: navBarWidth + 'px'}"
-			 @click="open">
+			 @click.stop="open">
 				<view class="back" @click="back" v-if="isSearch">
 					<text class="iconfont icon-fanhui2"></text>
 				</view>
-				<view class="navbar-serch">
+				<!-- 在非搜索页面显示这个搜索框 -->
+				<view class="navbar-search" v-if="!isSearch">
 					<view class="navbar-search-icon"><text class="iconfont icon-soushuo"></text></view>
-					<view class="navbar-serch-text">
+					<view class="navbar-search-text">
 						uni-app、vue
 					</view>
+				</view>
+				<!-- 在搜索页面显示这个搜索框 -->
+				<view class="navbar-search" v-if="isSearch">
+					<input class="navbar-search-text" type="text" value="" placeholder="请输入您要搜索的内容"/>
 				</view>
 			</view>
 		</view>
@@ -51,13 +56,14 @@
 		},
 		methods: {
 			open() {
+				if(this.isSearch) return
 				uni.navigateTo({
 					url: '/pages/home-search/home-search'
 				})
 			},
 			back() {
 				uni.navigateBack({
-					delta: 1
+					url: '/pages'
 				})
 			}
 		}
@@ -83,7 +89,7 @@
 				padding: 0 15px;
 				box-sizing: border-box;
 
-				.navbar-serch {
+				.navbar-search {
 					display: flex;
 					align-items: center;
 					padding: 0 10px;
@@ -97,7 +103,7 @@
 						color: #999;
 					}
 
-					.navbar-serch-text {
+					.navbar-search-text {
 						width: 100%;
 						font-size: 14px;
 						color: #999;
@@ -105,8 +111,9 @@
 				}
 
 				&.search {
+					padding-left: 0;
 					.back {
-						margin-left: -10px;
+						margin-left: 10px;
 						margin-right: 10px;
 
 						.icon-fanhui2 {
@@ -114,7 +121,7 @@
 							font-size: 20px;
 						}
 					}
-					.navbar-serch{
+					.navbar-search{
 						border-radius: 5px;
 					}
 				}
