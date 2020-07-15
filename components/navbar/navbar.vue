@@ -32,6 +32,10 @@
 			isSearch: {
 				type: Boolean,
 				default: false
+			},
+			value:{
+				type: [String,Number],
+				default: ''
 			}
 		},
 		data() {
@@ -40,6 +44,11 @@
 				navBarHeight: 45, //导航栏高度
 				navBarWidth: 375, //导航栏宽度
 				val: '' //搜索栏的数据
+			}
+		},
+		watch:{
+			value(newValue){
+				this.val = newValue
 			}
 		},
 		created() {

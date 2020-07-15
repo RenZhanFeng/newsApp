@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view @click="open">
 		<!-- 基础模式 -->
 		<view v-if="item.mode === 'base'" class="listCard">
 			<view class="listCard-image">
@@ -79,7 +79,9 @@
 			}
 		},
 		methods: {
-
+			open(){
+				this.$emit('addHistory', this.item)
+			}
 		}
 	}
 </script>

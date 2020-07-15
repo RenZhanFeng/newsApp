@@ -1,6 +1,6 @@
 <template>
 	<view class="home">
-		<navbar :isSearch="true" @input="change"></navbar>
+		<navbar :isSearch="true" @input="change" v-model="value"></navbar>
 		<view class="home-list">
 			<view class="label-box" v-if="is_history">
 				<view class="label-header">
@@ -11,8 +11,8 @@
 					</view>
 				</view>
 				<view class="label-content" v-if="historyLists.length > 0">
-					<view class="label-content-item" v-for="(item, index) in historyLists" :key="index">
-						{{item.name}}内容
+					<view class="label-content-item" v-for="(item, index) in historyLists" :key="index" @click="useHistory(item)">
+						{{item.name}}
 					</view>
 				</view>
 				<view class="no-data" v-else>
@@ -20,7 +20,13 @@
 				</view>
 			</view>
 			<list-scroll v-else class="list-scroll">
-				<list-card v-for="item in searchList" :key="item._id" :item="item"></list-card>
+				<uni-load-more v-if="loading" status="loading" iconType="snow"></uni-load-more>
+				<view v-if="searchList.length > 0">
+					<list-card v-for="item in searchList" :key="item._id" :item="item" @addHistory='addHistory'></list-card>
+				</view>
+				<view v-if="searchList.length === 0 && loading === false" class="no-data">
+					没有搜索到相关数据
+				</view>
 			</list-scroll>
 		</view>
 	</view>
@@ -34,7 +40,9 @@
 		data() {
 			return {
 				is_history: true, //true表示在搜索结果页面
-				searchList: [] //搜索结果数据列表
+				searchList: [], //搜索结果数据列表
+				value: '', //储存搜索栏的数据
+				loading: false //是否要显示loading动画
 			}
 		},
 		computed: {
@@ -43,7 +51,7 @@
 		methods: {
 			//搜索栏内容变化时触发
 			change(value) {
-				if(value === ''){
+				if (value === '') {
 					clearTimeout(this.timer)
 					this.searchList = []
 					this.is_history = true
@@ -62,6 +70,7 @@
 			//请求搜索结果
 			getSearch(value) {
 				this.is_history = false
+				this.loading = true
 				this.$api.get_search({
 					value
 				}).then(res => {
@@ -69,9 +78,28 @@
 					const {
 						data
 					} = res
+					this.loading = false
 					this.searchList = data
+				}).catch(() => {
+					this.loading = false
 				})
 			},
+			addHistory() {
+				let boo = this.historyLists.some((item) => {
+					return item.name === this.value
+				})
+				if (boo === false) {
+					this.$store.dispatch('set_history', {
+						name: this.value
+					})
+				} else {
+					return
+				}
+			},
+			useHistory(item) {
+				this.value = item.name
+				this.getSearch(this.value)
+			}
 		}
 	}
 </script>
@@ -128,16 +156,17 @@
 					}
 				}
 
-				.no-data {
-					height: 200px;
-					line-height: 200px;
-					width: 100%;
-					text-align: center;
-					color: #666;
-					font-size: 14px;
-					box-shadow: 0 5px 5px -3px #ccc;
-				}
 			}
 		}
+	}
+
+	.no-data {
+		height: 200px;
+		line-height: 200px;
+		width: 100%;
+		text-align: center;
+		color: #666;
+		font-size: 14px;
+		box-shadow: 0 5px 5px -3px #ccc;
 	}
 </style>
