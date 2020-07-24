@@ -6,7 +6,7 @@
 				<view class="label-header">
 					<text class="label-title">搜索历史</text>
 					<view class="label-clear">
-						<text class="label-clear-text">清空</text>
+						<text class="label-clear-text" @click="clear">清空</text>
 						<text class="iconfont icon-lajitong"></text>
 					</view>
 				</view>
@@ -49,6 +49,13 @@
 			...mapState(['historyLists'])
 		},
 		methods: {
+			//清除搜索历史数据
+			clear(){
+				this.$store.dispatch('clearHistory')
+				uni.showToast({
+					title:'已清空'
+				})
+			},
 			//搜索栏内容变化时触发
 			change(value) {
 				if (value === '') {

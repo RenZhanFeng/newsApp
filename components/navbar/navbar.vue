@@ -72,9 +72,9 @@
 				})
 			},
 			back() {
-				uni.navigateBack({
-					url: '/pages'
-				})
+				uni.switchTab({
+				    url: '/pages/tabbar/index/index'
+				});
 			},
 			inputChange(e) {
 				const {

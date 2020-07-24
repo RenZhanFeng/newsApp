@@ -4,22 +4,31 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-	state:{
-		historyLists:[]	//搜索历史
+	state: {
+		historyLists: uni.getStorageSync("__history") || [] //搜索历史
 	},
-	mutations:{
+	mutations: {
 		//修改搜索历史数据
 		SET_HISTORYLIST(state, history) {
 			state.historyLists = history
+		},
+		CLEAR_HISTORY(state){
+			state.historyLists = []
 		}
 	},
-	actions:{
+	actions: {
 		//修改搜索历史数据
-		 set_history({commit, state}, history) {
-			 let list = state.historyLists
-			 list.unshift(history)
-			 commit('SET_HISTORYLIST', list)
-		 }
+		set_history({commit,state}, history) {
+			let list = state.historyLists
+			list.unshift(history)
+			uni.setStorageSync("__history", list)
+			commit('SET_HISTORYLIST', list)
+		},
+		//清空搜索历史数据
+		clearHistory({commit,state}){
+			uni.removeStorageSync("__history")
+			commit('CLEAR_HISTORY')
+		}
 	}
 })
 
