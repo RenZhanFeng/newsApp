@@ -8,7 +8,7 @@
 				</view>
 			</view>
 		</scroll-view>
-		<view class="tab-icon">
+		<view class="tab-icon" @click="open">
 			<text class="iconfont icon-icon-test"></text>
 		</view>
 	</view>
@@ -47,8 +47,13 @@
 					item: item,
 					index: index
 				})
+			},
+			open(){
+				uni.navigateTo({
+					url:'/pages/home-label/home-label'
+				})
 			}
-		}
+		},
 	}
 </script>
 
