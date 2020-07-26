@@ -22,7 +22,11 @@
 			this.getLabel()
 		},
 		onLoad(){
+			//自定义事件，修改标签的时候通知首页更新标签
 			uni.$on('labelChange',() => {
+				this.tabList = []
+				this.tabIndex = 0
+				this.activeIndex = 0
 				this.getLabel()
 			})
 		},

@@ -39,6 +39,8 @@
 				if (newVal.length === 0) {
 					return
 				} else {
+					this.listCatchData = {}
+					this.load = {}
 					this.getList(this.activeIndex)
 				}
 			}
