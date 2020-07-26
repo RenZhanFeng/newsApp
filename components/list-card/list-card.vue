@@ -80,7 +80,21 @@
 		},
 		methods: {
 			open(){
-				this.$emit('addHistory', this.item)
+				const item = this.item
+				this.$emit('addHistory', item)
+				const params = {
+					_id: item._id,
+					title: item.title,
+					create_time: item.create_time,
+					thumbs_up_count: item.thumbs_up_count,
+					browse_count: item.browse_count,
+					author: item.author
+				}
+				console.log(params)
+				uni.navigateTo({
+					//用这个方式传参要注意长度
+					url:'/pages/home-detail/home-detail?params='+ JSON.stringify(params)
+				})
 			}
 		}
 	}
