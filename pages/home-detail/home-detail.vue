@@ -22,10 +22,18 @@
 			</view>
 		</view>
 		<view class="detail-content">
-			详情数据
+			<view class="detail-html">
+				<u-parse :content='formData.content' :noData="noData"></u-parse>
+			</view>
+			<view class="detail-comment">
+				<view class="comment-title">最新评论</view>
+				<view class="comment-content">
+					<comments-box></comments-box>
+				</view>
+			</view>
 		</view>
 		<view class="detail-bottom">
-			<view class="detail-bottom-input">
+			<view class="detail-bottom-input" @click="openComment">
 				<text>谈谈你的看法</text>
 				<text class="iconfont icon-bianji"></text>
 			</view>
@@ -37,22 +45,88 @@
 				</view>
 			</view>
 		</view>
+		<uni-popup type="bottom" ref="popup" :maskClick="false">
+			<view class="popup-wrap">
+				<view class="pop-header">
+					<text class="pop-header-item" @click="closeComment">取消</text>
+					<text class="pop-header-item" @click="submit">发布</text>
+				</view>
+				<view class="popup-content">
+					<textarea class="popup-textarea" v-model="commentsValue" placeholder="请输入评论内容" maxlength="200" fixed></textarea>
+					<view class="popup-count">
+						{{commentsValue.length}}/200
+					</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uParse from '@/components/gaoyia-parse/parse.vue'
 	export default {
 		data() {
 			return {
-				formData:{}
+				formData: {},
+				noData: '<p style="text-align:center;colof:#666">详情加载中...</p>',
+				commentsValue: ''
 			}
+		},
+		components: {
+			uParse
 		},
 		onLoad(query) {
 			//获取到首页连接中的参数
 			this.formData = JSON.parse(query.params)
+			this.getDetail()
 		},
 		methods: {
-
+			//获取详情信息
+			getDetail() {
+				this.$api.get_detail({
+					article_id: this.formData._id
+				}).then(res => {
+					const {
+						data
+					} = res
+					this.formData = data
+					console.log(res)
+				})
+			},
+			//更新评论
+			setUpdateComment(content) {
+				uni.showLoading()
+				this.$api.updata_comment({
+					article_id: this.formData._id,
+					content
+				}).then(res => {
+					console.log(res)
+					uni.hideLoading()
+					uni.showToast({
+						title:'评论发布成功'
+					})
+					this.closeComment()
+				})
+			},
+			//打开评论区的输入框
+			openComment() {
+				this.$refs.popup.open()
+			},
+			//关闭评论区的输入框
+			closeComment() {
+				this.$refs.popup.close()
+			},
+			//发布评论
+			submit() {
+				if (!this.commentsValue) {
+					uni.showToast({
+						title: '请输入内容',
+						icon: 'none'
+					})
+					return
+				}
+				this.setUpdateComment(this.commentsValue)
+			}
 		}
 	}
 </script>
@@ -115,8 +189,25 @@
 	}
 
 	.detail-content {
-		height: 1000px;
-		border: 1px solid red;
+		margin-top: 20px;
+		min-height: 500px;
+
+		.detail-html {
+			padding: 0 15px;
+		}
+		.detail-comment{
+			margin-top: 30px;
+			.comment-title{
+				padding: 10px 15px;
+				font-size: 14px;
+				color: #666;
+				border-bottom: 1px #f5f5f5 solid;
+			}
+			.comment-content{
+				padding: 0 15px;
+				border-top: 1px #eee solid;
+			}
+		}
 	}
 
 	.detail-bottom {
@@ -167,6 +258,42 @@
 					font-size: 20px;
 					color: $base-color;
 				}
+			}
+		}
+	}
+
+	.popup-wrap {
+		background-color: #fff;
+
+		.pop-header {
+			display: flex;
+			justify-content: space-between;
+			border-bottom: 1px #f5f5f5 solid;
+			font-size: 14px;
+			color: #666;
+
+			.pop-header-item {
+				height: 50px;
+				line-height: 50px;
+				padding: 0 15px;
+			}
+		}
+
+		.popup-content {
+			width: 100%;
+			padding: 15px;
+			box-sizing: border-box;
+
+			.popup-textarea {
+				width: 100%;
+				height: 200px;
+			}
+
+			.popup-count {
+				display: flex;
+				justify-content: flex-end;
+				font-size: 12px;
+				color: #999;
 			}
 		}
 	}

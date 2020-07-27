@@ -34,3 +34,17 @@ export const updata_label = (data) => {
 		data
 	})
 }
+
+export const get_detail = (data) => {
+	return $http({
+		url: 'get_detail',
+		data
+	})
+}
+
+export const updata_comment = (data) => {
+	return $http({
+		url: 'updata_comment',
+		data
+	})
+}
