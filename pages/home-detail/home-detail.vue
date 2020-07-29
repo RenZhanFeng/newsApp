@@ -22,13 +22,13 @@
 			</view>
 		</view>
 		<view class="detail-content">
-			<view class="detail-html">
+			<!-- <view class="detail-html">
 				<u-parse :content='formData.content' :noData="noData"></u-parse>
-			</view>
+			</view> -->
 			<view class="detail-comment">
 				<view class="comment-title">最新评论</view>
-				<view class="comment-content">
-					<comments-box></comments-box>
+				<view class="comment-content" v-for="(item, index) in commentsList" :key="item.comment_id">
+					<comments-box :comments="item" @reply="reply"></comments-box>
 				</view>
 			</view>
 		</view>
@@ -69,7 +69,9 @@
 			return {
 				formData: {},
 				noData: '<p style="text-align:center;colof:#666">详情加载中...</p>',
-				commentsValue: ''
+				commentsValue: '',
+				commentsList: [],
+				replyFormData:{}
 			}
 		},
 		components: {
@@ -79,6 +81,7 @@
 			//获取到首页连接中的参数
 			this.formData = JSON.parse(query.params)
 			this.getDetail()
+			this.getComments()
 		},
 		methods: {
 			//获取详情信息
@@ -90,23 +93,36 @@
 						data
 					} = res
 					this.formData = data
-					console.log(res)
+				})
+			},
+			//获取评论内容
+			getComments(){
+				this.$api.get_comments({
+					article_id: this.formData._id
+				})
+				.then(res => {
+					const {data} = res
+					this.commentsList = data
+					console.log(this.commentsList)
 				})
 			},
 			//更新评论
 			setUpdateComment(content) {
-				uni.showLoading()
-				this.$api.updata_comment({
+				const formdata = {
 					article_id: this.formData._id,
-					content
-				}).then(res => {
+					...content
+				}
+				uni.showLoading()
+				this.$api.updata_comment(formdata).then(res => {
 					console.log(res)
 					uni.hideLoading()
 					uni.showToast({
 						title:'评论发布成功'
 					})
+					this.getComments()
 					this.closeComment()
 				})
+				this.replyFormData = {}
 			},
 			//打开评论区的输入框
 			openComment() {
@@ -115,6 +131,7 @@
 			//关闭评论区的输入框
 			closeComment() {
 				this.$refs.popup.close()
+				this.commentsValue = ''
 			},
 			//发布评论
 			submit() {
@@ -125,7 +142,14 @@
 					})
 					return
 				}
-				this.setUpdateComment(this.commentsValue)
+				this.setUpdateComment({content:this.commentsValue,...this.replyFormData})
+			},
+			//回复评论
+			reply(e){
+				this.replyFormData = {
+					"comment_id": e.comment_id,
+				}
+				this.openComment()
 			}
 		}
 	}
