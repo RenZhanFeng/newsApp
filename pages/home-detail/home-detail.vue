@@ -37,7 +37,7 @@
 			</view>
 			<view class="detail-bottom-icons">
 				<view class="detail-bottom-iconsBox">
-					<text class="iconfont icon-xinxi"></text>
+					<text class="iconfont icon-xinxi" @click="open"></text>
 					<text class="iconfont" :class="[formData.is_like?'icon-like':'icon-unlike']" @click="likeTap(formData._id)"></text>
 					<text class="iconfont" :class="[formData.is_thumbs_up?'icon-dianzan-copy':'icon-dianzan']" @click="thumbsup(formData._id)"></text>
 				</view>
@@ -82,6 +82,12 @@
 			this.getComments()
 		},
 		methods: {
+			//打开评论列表
+			open(){
+				uni.navigateTo({
+					url: `../detail-comments/detail-comments?id=${this.formData._id}`
+				})
+			},
 			//获取详情信息
 			getDetail() {
 				this.$api.get_detail({
